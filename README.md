@@ -114,11 +114,6 @@ After seeding the database, you can login with:
 - Email: admin@example.com
 - Password: password
 
-**Regular User Account:**
-
-- Email: user@example.com
-- Password: password
-
 ### User Roles & Permissions
 
 #### Admin Role
