@@ -8,16 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class VolunteersController extends Controller
 {
-    use AuthorizesRequests;
 
     function index(Request $request)
     {
-        $this->authorize('viewAny', Volunteer::class);
-
         $query = Volunteer::query();
 
         // Search functionality
@@ -36,14 +32,18 @@ class VolunteersController extends Controller
 
     function create()
     {
-        $this->authorize('create', Volunteer::class);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to create volunteers.');
+        }
 
         return view('volunteers.create');
     }
 
     function store(VolunteerRequest $request)
     {
-        $this->authorize('create', Volunteer::class);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to create volunteers.');
+        }
 
         try {
             DB::beginTransaction();
@@ -74,7 +74,9 @@ class VolunteersController extends Controller
     function destroy($id)
     {
         $volunteer = Volunteer::findOrFail($id);
-        $this->authorize('delete', $volunteer);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to delete volunteers.');
+        }
 
         try {
             DB::beginTransaction();
@@ -99,7 +101,9 @@ class VolunteersController extends Controller
     function edit($id)
     {
         $volunteer = Volunteer::findOrFail($id);
-        $this->authorize('update', $volunteer);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to edit volunteers.');
+        }
 
         return view('volunteers.edit', compact('volunteer'));
     }
@@ -107,7 +111,9 @@ class VolunteersController extends Controller
     function update(VolunteerRequest $request, $id)
     {
         $volunteer = Volunteer::findOrFail($id);
-        $this->authorize('update', $volunteer);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to update volunteers.');
+        }
 
         try {
             DB::beginTransaction();

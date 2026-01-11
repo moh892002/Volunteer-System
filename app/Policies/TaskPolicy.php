@@ -31,7 +31,7 @@ class TaskPolicy
     public function create(User $user): bool
     {
         // Both admin and regular users can create tasks
-        return $user->isAdmin() || $user->isUser();
+        return $user->isAdmin();
     }
 
     /**
@@ -40,7 +40,7 @@ class TaskPolicy
     public function update(User $user, Task $task): bool
     {
         // Both admin and regular users can update tasks
-        return $user->isAdmin() || $user->isUser();
+        return $user->isAdmin();
     }
 
     /**

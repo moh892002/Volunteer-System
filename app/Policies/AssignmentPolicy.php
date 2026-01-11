@@ -31,7 +31,7 @@ class AssignmentPolicy
     public function create(User $user): bool
     {
         // Both admin and regular users can create assignments
-        return $user->isAdmin() || $user->isUser();
+        return $user->isAdmin();
     }
 
     /**
@@ -40,7 +40,7 @@ class AssignmentPolicy
     public function update(User $user, Assignment $assignment): bool
     {
         // Both admin and regular users can update assignments
-        return $user->isAdmin() || $user->isUser();
+        return $user->isAdmin();
     }
 
     /**
@@ -76,6 +76,6 @@ class AssignmentPolicy
     public function updateStatus(User $user, Assignment $assignment): bool
     {
         // Both admin and regular users can update assignment status
-        return $user->isAdmin() || $user->isUser();
+        return $user->isAdmin();
     }
 }

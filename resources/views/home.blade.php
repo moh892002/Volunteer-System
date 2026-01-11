@@ -22,12 +22,12 @@
 </head>
 
 <body>
-    <div class="p-2">
-        <p>add /login to the url to go to the dashboard</p>
-        <p>email: moh@gmail.com</p>
-        <p>password: 123456789</p>
-    </div>
     <div class="container mt-5">
+        <div class="d-flex justify-content-end mb-4">
+            <a href="/login" class="btn btn-outline-primary btn-lg shadow-sm px-4 py-2 d-flex align-items-center">
+                <i class="fas fa-sign-in-alt me-2"></i> Login
+            </a>
+        </div>
         <h1 class="mb-4 text-primary fw-bold">Volunteers Assignments</h1>
         <div class="card border-0 shadow-sm">
             <div class="card-header bg-white border-0 px-4 py-3">

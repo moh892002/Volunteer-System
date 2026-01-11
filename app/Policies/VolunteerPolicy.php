@@ -31,7 +31,7 @@ class VolunteerPolicy
     public function create(User $user): bool
     {
         // Both admin and regular users can create volunteers
-        return $user->isAdmin() || $user->isUser();
+        return $user->isAdmin();
     }
 
     /**

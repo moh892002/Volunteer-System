@@ -36,6 +36,7 @@
     <div class="d-flex justify-content-center align-items-center" style="min-height:100vh;">
         <div class="login-card">
             <div class="text-center mb-4">
+                {{-- <img src="https://laravel.com/img/logomark.min.svg" alt="Logo" class="brand-logo"> --}}
                 <i class="fas fa-user text-primary brand-logo"></i>
                 <h2 class="fw-bold mb-2">login Back</h2>
                 <p class="text-muted mb-0">Please login to your account</p>
@@ -46,6 +47,10 @@
                 <x-input name="password" label="Password" class="form-control mb-3" type="password" />
                 <div class="d-grid gap-2 mb-3">
                     <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                </div>
+                <div class="text-center">
+                    <span class="text-muted">Don't have an account?</span>
+                    <a href="{{ route('register') }}" class="btn btn-link p-0 align-baseline">Register</a>
                 </div>
             </form>
         </div>

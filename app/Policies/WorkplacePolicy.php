@@ -31,7 +31,7 @@ class WorkplacePolicy
     public function create(User $user): bool
     {
         // Both admin and regular users can create workplaces
-        return $user->isAdmin() || $user->isUser();
+        return $user->isAdmin();
     }
 
     /**

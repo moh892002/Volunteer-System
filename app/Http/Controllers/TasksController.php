@@ -5,15 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TaskRequest;
 use App\Models\Task;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 
 class TasksController extends Controller
 {
-    use AuthorizesRequests;
-
     function index(Request $request)
     {
-        $this->authorize('viewAny', Task::class);
 
         $query = Task::query();
 
@@ -31,14 +28,18 @@ class TasksController extends Controller
 
     function create()
     {
-        $this->authorize('create', Task::class);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to create tasks.');
+        }
 
         return view('tasks.create');
     }
 
     function store(TaskRequest $request)
     {
-        $this->authorize('create', Task::class);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to create tasks.');
+        }
 
         try {
             Task::create([
@@ -58,7 +59,9 @@ class TasksController extends Controller
     function destroy($id)
     {
         $task = Task::findOrFail($id);
-        $this->authorize('delete', $task);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to delete tasks.');
+        }
 
         try {
             $task->delete();
@@ -73,7 +76,9 @@ class TasksController extends Controller
     function edit($id)
     {
         $task = Task::findOrFail($id);
-        $this->authorize('update', $task);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to edit tasks.');
+        }
 
         return view('tasks.edit', compact('task'));
     }
@@ -81,7 +86,9 @@ class TasksController extends Controller
     function update(TaskRequest $request, $id)
     {
         $task = Task::findOrFail($id);
-        $this->authorize('update', $task);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to update tasks.');
+        }
 
         try {
             $task->update([

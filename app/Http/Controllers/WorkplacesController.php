@@ -5,16 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\WorkplaceRequest;
 use App\Models\Workplace;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 
 class WorkplacesController extends Controller
 {
-    use AuthorizesRequests;
 
     function index(Request $request)
     {
-        $this->authorize('viewAny', Workplace::class);
-
         $query = Workplace::query();
 
         // Search functionality
@@ -34,14 +31,18 @@ class WorkplacesController extends Controller
 
     function create()
     {
-        $this->authorize('create', Workplace::class);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to create workplaces.');
+        }
 
         return view('workplaces.create');
     }
 
     function store(WorkplaceRequest $request)
     {
-        $this->authorize('create', Workplace::class);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to create workplaces.');
+        }
 
         try {
             Workplace::create([
@@ -64,7 +65,9 @@ class WorkplacesController extends Controller
     function destroy($id)
     {
         $workplace = Workplace::findOrFail($id);
-        $this->authorize('delete', $workplace);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to delete workplaces.');
+        }
 
         try {
             $workplace->delete();
@@ -79,7 +82,9 @@ class WorkplacesController extends Controller
     function edit($id)
     {
         $workplace = Workplace::findOrFail($id);
-        $this->authorize('update', $workplace);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to edit workplaces.');
+        }
 
         return view('workplaces.edit', compact('workplace'));
     }
@@ -87,7 +92,9 @@ class WorkplacesController extends Controller
     function update(WorkplaceRequest $request, $id)
     {
         $workplace = Workplace::findOrFail($id);
-        $this->authorize('update', $workplace);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to update workplaces.');
+        }
 
         try {
             $workplace->update([

@@ -8,17 +8,14 @@ use App\Models\Workplace;
 use App\Models\Assignment;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Http\Requests\AssignmentRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AssignmentController extends Controller
 {
-    use AuthorizesRequests;
 
     public function index(Request $request)
     {
-        $this->authorize('viewAny', Assignment::class);
-
         $query = Assignment::with(['volunteer', 'workplace', 'task'])
             ->latest();
 
@@ -70,7 +67,9 @@ class AssignmentController extends Controller
 
     public function create()
     {
-        $this->authorize('create', Assignment::class);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to create assignments.');
+        }
 
         $volunteers = Volunteer::all();
         $workplaces = Workplace::all();
@@ -82,7 +81,9 @@ class AssignmentController extends Controller
 
     public function store(AssignmentRequest $request)
     {
-        $this->authorize('create', Assignment::class);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to create assignments.');
+        }
 
         try {
             Assignment::create($request->validated());
@@ -98,7 +99,9 @@ class AssignmentController extends Controller
     public function edit($id)
     {
         $assignment = Assignment::findOrFail($id);
-        $this->authorize('update', $assignment);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to edit assignments.');
+        }
 
         $volunteers = Volunteer::all();
         $workplaces = Workplace::all();
@@ -111,7 +114,9 @@ class AssignmentController extends Controller
     public function update(AssignmentRequest $request, $id)
     {
         $assignment = Assignment::findOrFail($id);
-        $this->authorize('update', $assignment);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to update assignments.');
+        }
 
         try {
             $assignment->update($request->validated());
@@ -127,7 +132,9 @@ class AssignmentController extends Controller
     public function destroy($id)
     {
         $assignment = Assignment::findOrFail($id);
-        $this->authorize('delete', $assignment);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to delete assignments.');
+        }
 
         try {
             $assignment->delete();
@@ -145,7 +152,9 @@ class AssignmentController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $assignment = Assignment::findOrFail($id);
-        $this->authorize('updateStatus', $assignment);
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->back()->with('error', 'You do not have permission to update assignment status.');
+        }
 
         $request->validate([
             'status' => 'required|in:pending,active,completed'
