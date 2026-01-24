@@ -2,6 +2,14 @@
 
 A comprehensive Laravel-based volunteer management system for organizing volunteers, tasks, workplaces, and assignments.
 
+## Tech Stack
+
+- **Backend:** Laravel 12 (PHP 8.2+)
+- **Frontend:** Vite, bootstrap CSS
+- **Database:** SQLite (default, can be changed)
+- **Containerization:** Docker, Docker Compose
+- **Package Management:** Composer (PHP), NPM (Node.js)
+
 ## Features
 
 - **User Authentication & Authorization**
@@ -41,6 +49,36 @@ A comprehensive Laravel-based volunteer management system for organizing volunte
 
 ## Installation
 
+## Running with Docker
+
+### Build and Start the Application
+
+1. **Ensure Docker and Docker Compose are installed.**
+2. **Build and run the container:**
+
+    docker-compose up --build
+    
+
+    This will build the Docker image and start the Laravel application at [http://localhost:8000].
+
+3. **(Optional) Run migrations and seeders inside the container:**
+
+    Open a new terminal and run:
+
+    docker exec -it laravel_app php artisan migrate --seed
+
+### Stopping and Cleaning Up
+
+- To stop the running container:
+
+    docker-compose down
+    
+
+- To remove all stopped containers, networks, and dangling images (cleanup):
+
+    docker system prune -f
+    
+
 ### Requirements
 
 - PHP >= 8.2
@@ -56,36 +94,38 @@ A comprehensive Laravel-based volunteer management system for organizing volunte
     cd Volunteer-System
 
 2. **Install PHP dependencies**
-    
+
     composer install
 
 3. **Install Node dependencies**
-    
+
     npm install
 
 4. **Environment setup**
-
 
     cp .env.example .env
     php artisan key:generate
 
 5. **Database setup**
 
-    
     # Create SQLite database
+
     touch database/database.sqlite
 
     # Run migrations
+
     php artisan migrate
+
     # Seed database with sample data (optional)
+
     php artisan db:seed
 
 6. **Build frontend assets**
-    
+
     npm run build
 
 7. **Start the development server**
-    
+
     php artisan serve
 
     Visit: http://127.0.0.1:8000
