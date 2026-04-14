@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8" />
     <title>Register</title>
-    <link rel="stylesheet" href="{{ asset('build/assets/css/all.css') }}" />
-    <link rel="stylesheet" href="{{ asset('build/assets/css/bootstrap.min.css') }}" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('build/dashboard-assets/vendor/fontawesome-free/css/all.min.css') }}" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('build/dashboard-assets/vendor/bootstrap/css/bootstrap.min.css') }}" />
     <style>
         body {
             background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
@@ -99,8 +101,8 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('build/assets/js/all.js') }}"></script>
-    <script src="{{ asset('build/assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('build/dashboard-assets/vendor/fontawesome-free/js/all.min.js') }}"></script>
+    <script src="{{ asset('build/dashboard-assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 </body>
 
 </html>

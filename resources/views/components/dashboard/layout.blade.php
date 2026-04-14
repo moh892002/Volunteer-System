@@ -16,12 +16,12 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('build/assets/css/bootstrap.min.css') }}">
-
-    {{-- fontawesome --}}
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('build/dashboard-assets/vendor/fontawesome-free/css/all.min.css') }}">
-    {{-- bootstrap --}}
-    {{-- <link rel="stylesheet" href="{{ asset('build/dashboard-assets/css/bootstrap.min.css') }}"> --}}
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('build/dashboard-assets/vendor/bootstrap/css/bootstrap.min.css') }}">
+    
     <!-- Custom styles for this template-->
     <link href="{{ asset('build/dashboard-assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
