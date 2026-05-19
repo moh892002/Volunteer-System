@@ -2,13 +2,15 @@
     <x-slot:title>Assignments</x-slot:title>
     <div class="d-flex align-items-center justify-content-between mb-2">
         <h1>All Assignments</h1>
+        @if(Auth::user()->isAdmin())
         <a class="btn btn-secondary p-2" href="{{ route('assignment.create') }}">
             <i class="fas fa-plus"></i> Add new assignment
         </a>
+        @endif
     </div>
 
     <!-- Success/Error Messages -->
-    @if (session('success'))
+    {{-- @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -20,7 +22,7 @@
             {{ session('error') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
-    @endif
+    @endif --}}
 
     <!-- Search and Filter Form -->
     <div class="card mb-4">
@@ -99,7 +101,9 @@
                 <th>Task Name</th>
                 <th>Volunteer Skills</th>
                 <th>Status</th>
-                <th>Actions</th>
+                @if(Auth::user()->isAdmin())
+                    <th>Actions</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -110,6 +114,7 @@
                     <td>{{ $assignment->workplace->name }}</td>
                     <td>{{ $assignment->task->name }}</td>
                     <td>{{ $assignment->volunteer->skills }}</td>
+                    @if(Auth::user()->isAdmin())
                     <td>
                         <form action="{{ route('assignment.update-status', $assignment->id) }}" method="POST"
                             style="display: inline;">
@@ -126,24 +131,33 @@
                             </select>
                         </form>
                     </td>
-                    <td>
-                        <form action="{{ route('assignment.destroy', $assignment->id) }}" method="POST"
+                    @else
+                        <td class="">
+                            <span class="badge rounded-pill {{ $assignment->status_badge_class ?? 'bg-secondary' }} text-capitalize fs-6">
+                                {{ $assignment->status }}
+                            </span>
+                        </td>
+                    @endif
+                    @if(Auth::user()->isAdmin())
+                        <td>
+                            <form action="{{ route('assignment.destroy', $assignment->id) }}" method="POST"
                             style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <a href="{{ route('assignment.edit', $assignment->id) }}" class="btn btn-info">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <button type="submit" class="btn btn-danger"
-                                onclick="return confirm('Are you sure you want to delete this assignment?')">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
-                    </td>
+                                @csrf
+                                @method('DELETE')
+                                <a href="{{ route('assignment.edit', $assignment->id) }}" class="btn btn-info">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('Are you sure you want to delete this assignment?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    @endif
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" class="text-center">No assignments found.</td>
+                    <td colspan="{{ Auth::user()->isAdmin() ? 7 : 6 }}" class="text-center">No assignments found.</td>
                 </tr>
             @endforelse
         </tbody>

@@ -30,7 +30,7 @@ class WorkplacePolicy
      */
     public function create(User $user): bool
     {
-        // Both admin and regular users can create workplaces
+        // only admins can create workplaces
         return $user->isAdmin();
     }
 
@@ -39,8 +39,8 @@ class WorkplacePolicy
      */
     public function update(User $user, Workplace $workplace): bool
     {
-        // Both admin and regular users can update workplaces
-        return $user->isAdmin() || $user->isUser();
+        // only admins can update workplaces
+        return $user->isAdmin();
     }
 
     /**

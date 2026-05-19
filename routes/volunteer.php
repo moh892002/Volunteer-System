@@ -13,4 +13,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/volunteers/{id}', [VolunteersController::class, 'destroy'])->name('volunteers.destroy');
     Route::get('/volunteers/{id}/edit', [VolunteersController::class, 'edit'])->name('volunteers.edit');
     Route::match(['put', 'patch'], 'volunteers/{id}', [VolunteersController::class, 'update'])->name('volunteers.update');
+    Route::patch('/volunteers/{id}/restore', [VolunteersController::class, 'restore'])->name('volunteers.restore');
+    Route::get('/volunteers/export', [VolunteersController::class, 'export'])->name('volunteers.export');
 });

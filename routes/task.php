@@ -10,4 +10,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/tasks/{id}', [TasksController::class, 'destroy'])->name('tasks.destroy');
     Route::get('/tasks/{id}/edit', [TasksController::class, 'edit'])->name('tasks.edit');
     Route::match(['put', 'patch'], '/tasks/{id}', [TasksController::class, 'update'])->name('tasks.update');
+    Route::patch('/tasks/{id}/restore', [TasksController::class, 'restore'])->name('tasks.restore');
+    Route::get('/tasks/export', [TasksController::class, 'export'])->name('tasks.export');
 });

@@ -4,10 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WorkplacesController;
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/workplace', [WorkplacesController::class, 'index'])->name('workplaces.index');
-    Route::get('/workplace/create', [WorkplacesController::class, 'create'])->name('workplace.create');
-    Route::post('/workplace', [WorkplacesController::class, 'store'])->name('workplace.store');
-    Route::delete('/workplace/{id}', [WorkplacesController::class, 'destroy'])->name('workplace.destroy');
-    Route::get('/workplace/{id}/edit', [WorkplacesController::class, 'edit'])->name('workplace.edit');
-    Route::match(['put', 'patch'], '/workplace/{id}', [WorkplacesController::class, 'update'])->name('workplace.update');
+    Route::get('/workplaces', [WorkplacesController::class, 'index'])->name('workplaces.index');
+    Route::get('/workplaces/create', [WorkplacesController::class, 'create'])->name('workplaces.create');
+    Route::post('/workplaces', [WorkplacesController::class, 'store'])->name('workplaces.store');
+    Route::delete('/workplaces/{id}', [WorkplacesController::class, 'destroy'])->name('workplaces.destroy');
+    Route::get('/workplaces/{id}/edit', [WorkplacesController::class, 'edit'])->name('workplaces.edit');
+    Route::match(['put', 'patch'], '/workplaces/{id}', [WorkplacesController::class, 'update'])->name('workplaces.update');
+    Route::patch('/workplaces/{id}/restore', [WorkplacesController::class, 'restore'])->name('workplaces.restore');
+    Route::get('/workplaces/export', [WorkplacesController::class, 'export'])->name('workplaces.export');
 });

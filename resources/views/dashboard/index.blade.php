@@ -7,19 +7,19 @@
     </div>
 
     <!-- Success/Error Messages -->
-    @if (session('success'))
+    {{-- @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
-    @endif
+    @endif --}}
 
-    @if (session('error'))
+    {{-- @if (session('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{ session('error') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
-    @endif
+    @endif --}}
 
     <!-- Statistics Cards Row -->
     <div class="row">
@@ -182,38 +182,40 @@
     </div>
 
     <!-- Quick Actions Row -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Quick Actions</h6>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-3 mb-2">
-                            <a href="{{ route('volunteers.create') }}" class="btn btn-primary btn-block">
-                                <i class="fas fa-user-plus"></i> Add Volunteer
-                            </a>
-                        </div>
-                        <div class="col-md-3 mb-2">
-                            <a href="{{ route('tasks.create') }}" class="btn btn-success btn-block">
-                                <i class="fas fa-plus"></i> Add Task
-                            </a>
-                        </div>
-                        <div class="col-md-3 mb-2">
-                            <a href="{{ route('workplace.create') }}" class="btn btn-info btn-block">
-                                <i class="fas fa-building"></i> Add Workplace
-                            </a>
-                        </div>
-                        <div class="col-md-3 mb-2">
-                            <a href="{{ route('assignment.create') }}" class="btn btn-warning btn-block">
-                                <i class="fas fa-clipboard"></i> Add Assignment
-                            </a>
+    @if(Auth::user()->isAdmin())
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Quick Actions</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 mb-2">
+                                <a href="{{ route('volunteers.create') }}" class="btn btn-primary btn-block">
+                                    <i class="fas fa-user-plus"></i> Add Volunteer
+                                </a>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <a href="{{ route('tasks.create') }}" class="btn btn-success btn-block">
+                                    <i class="fas fa-plus"></i> Add Task
+                                </a>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <a href="{{ route('workplaces.create') }}" class="btn btn-info btn-block">
+                                    <i class="fas fa-building"></i> Add Workplace
+                                </a>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <a href="{{ route('assignment.create') }}" class="btn btn-warning btn-block">
+                                    <i class="fas fa-clipboard"></i> Add Assignment
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
 </x-dashboard.layout>

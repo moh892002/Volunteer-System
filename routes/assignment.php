@@ -12,4 +12,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/assignments/{id}/edit', [AssignmentController::class, 'edit'])->name('assignment.edit');
     Route::match(['put', 'patch'], 'assignments/{id}', [AssignmentController::class, 'update'])->name('assignment.update');
     Route::patch('/assignments/{id}/status', [AssignmentController::class, 'updateStatus'])->name('assignment.update-status');
+    Route::patch('/assignments/{id}/restore', [AssignmentController::class, 'restore'])->name('assignment.restore');
+    Route::get('/assignments/export', [AssignmentController::class, 'export'])->name('assignment.export');
 });

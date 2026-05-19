@@ -4,9 +4,11 @@
     {{-- content here --}}
     <div class="d-flex align-items-center justify-content-between mb-2">
         <h1>All Volunteers</h1>
-        <a class="btn btn-secondary p-2" href="{{ route('volunteers.create') }}">
-            <i class="fas fa-plus"></i> Add new volunteer
-        </a>
+        @if (Auth::user()->isAdmin())
+            <a class="btn btn-secondary p-2" href="{{ route('volunteers.create') }}">
+                <i class="fas fa-plus"></i> Add new volunteer
+            </a>
+        @endif
     </div>
     <table class="w-100 table table-hover text-center">
         <thead class="table-primary">
@@ -16,7 +18,9 @@
                 <th class="p-3">Email</th>
                 <th class="p-3">Phone</th>
                 <th class="p-3">Skills</th>
-                <th class="p-3">Actions</th>
+                @if(Auth::user()->isAdmin())
+                    <th class="p-3">Actions</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -29,8 +33,8 @@
                     <td class="p-3">{{ $volunteer->email }}</td>
                     <td class="p-3">{{ $volunteer->phone }}</td>
                     <td class="p-3">{{ $volunteer->skills }}</td>
-                    <td>
-                        @if (Auth::user()->isAdmin())
+                    @if(Auth::user()->isAdmin())
+                        <td>
                             <form action="{{ route('volunteers.destroy', $volunteer->id) }}" method="POST">
                                 @csrf
                                 @method('delete')
@@ -38,10 +42,8 @@
                                         class="fas fa-edit"></i></a>
                                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                             </form>
-                        @else
-                            <span class="text-muted">View Only</span>
-                        @endif
-                    </td>
+                        </td>
+                    @endif
                 </tr>
             @empty
                 <td class="p-3" colspan="6">No volunteers found</td>

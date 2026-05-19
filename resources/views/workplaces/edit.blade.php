@@ -9,7 +9,7 @@
                 <i class="fas fa-arrow-left"></i> all workplaces</a>
         </div>
 
-        <form class="row" action="{{ route('workplace.update', $workplace->id) }}" method="POST"
+        <form class="row" action="{{ route('workplaces.update', $workplace->id) }}" method="POST"
             enctype="multipart/form-data">
             @csrf
             @method('put')

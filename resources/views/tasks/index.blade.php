@@ -4,9 +4,11 @@
     {{-- content here --}}
     <div class="d-flex align-items-center justify-content-between mb-2">
         <h1>All Tasks</h1>
-        <a class="btn btn-secondary p-2" href="{{ route('tasks.create') }}">
-            <i class="fas fa-plus"></i> Add new task
-        </a>
+        @if (Auth::user()->isAdmin())
+            <a class="btn btn-secondary p-2" href="{{ route('tasks.create') }}">
+                <i class="fas fa-plus"></i> Add new task
+            </a>
+        @endif
     </div>
     <table class="w-100 table table-hover text-center">
         <thead class="table-primary">
@@ -14,7 +16,9 @@
                 <th class="p-3">ID</th>
                 <th class="p-3">Name</th>
                 <th class="p-3">Description</th>
-                <th class="p-3">Actions</th>
+                @if(Auth::user()->isAdmin())
+                    <th class="p-3">Actions</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -23,15 +27,17 @@
                     <td class="p-3">{{ $task->id }}</td>
                     <td class="p-3">{{ $task->name }}</td>
                     <td class="p-3">{{ $task->description }}</td>
-                    <td>
-                        <form action="{{ route('tasks.destroy', $task->id) }}" method="POST">
-                            @csrf
-                            @method('delete')
-                            <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-primary"><i
-                                    class="fas fa-edit"></i></a>
-                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                        </form>
-                    </td>
+                    @if (Auth::user()->isAdmin())
+                        <td>
+                            <form action="{{ route('tasks.destroy', $task->id) }}" method="POST">
+                                @csrf
+                                @method('delete')
+                                <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-primary"><i
+                                        class="fas fa-edit"></i></a>
+                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
+                    @endif
                 </tr>
             @empty
                 <td class="p-3" colspan="4">No tasks found</td>

@@ -7,7 +7,7 @@
                 <i class="fas fa-arrow-left"></i> All Workplaces
             </a>
         </div>
-        <form method="POST" action="{{ route('workplace.store') }}" class="row">
+        <form method="POST" action="{{ route('workplaces.store') }}" class="row">
             @csrf
             <x-input name="name" label="Name" class="form-control" type="text" />
             <x-input name="email" label="Email" class="form-control" type="email" />

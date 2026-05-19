@@ -25,6 +25,27 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('build/dashboard-assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+    <style>
+        .sidebar {
+            transition: width 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .sidebar .nav-item .nav-link {
+            transition: all 0.2s ease;
+        }
+        .sidebar .nav-item .nav-link:hover {
+            transition: all 0.2s ease;
+        }
+        .sidebar .sidebar-divider {
+            transition: margin 0.3s ease;
+        }
+        .sidebar .sidebar-brand-text {
+            transition: opacity 0.3s ease;
+        }
+        #content-wrapper {
+            transition: margin-left 0.3s ease-in-out;
+        }
+    </style>
+
 </head>
 
 <body id="page-top">
